@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>GoalFlow — Goal & Habit Tracker</title>
+    <meta
+      name="description"
+      content="GoalFlow — flow with the future, not the past. A beautiful goal, habit and milestone tracker with streaks, analytics and achievements."
+    />
+    <meta name="theme-color" content="#eff4ff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#070d1c" media="(prefers-color-scheme: dark)" />
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="GoalFlow" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="application-name" content="GoalFlow" />
+    <meta name="msapplication-TileColor" content="#2563eb" />
+
+    <!-- Fonts (cached by the service worker for offline use) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      html {
+        background: #eff4ff;
+      }
+      html.dark {
+        background: #070d1c;
+      }
+    </style>
+    <script>
+      // Anti-FOUC: apply the saved theme before first paint.
+      (function () {
+        try {
+          var raw = localStorage.getItem('goalflow.settings.v1');
+          var theme = raw ? JSON.parse(raw).theme : null;
+          var dark =
+            theme === 'dark' ||
+            ((!theme || theme === 'system') &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (dark) document.documentElement.classList.add('dark');
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
